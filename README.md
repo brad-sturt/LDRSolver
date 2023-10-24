@@ -22,7 +22,7 @@ If you use the code in this repository in your own research, please cite the abo
 
 This repository is organized into the following directories: 
 
-* `examples/` Contains the scripts for performing the numerical experiments with active set method. The output of executing the scripts is saved in the data directory. 
+* `examples/` Contains the scripts for performing the numerical experiments with active set method. The output of executing the scripts is saved in the `output/` directory. 
 	*  `bental.jl`  After loading the script into the Julia terminal, the code is executed using the main function. 
 *  `src/` Contains the code for the acive set method. 
 	*  `algorithm_full.jl` Contains the code for the active set method.
