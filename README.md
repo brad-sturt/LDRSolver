@@ -10,7 +10,7 @@ This repository contains the active set method used in the numerical experiments
 If you use the code in this repository in your own research, please cite the above paper as follows:
 
 ```
-@article{lu2023sparsity,
+@article{lusturt2023sparsity,
   title={On the Sparsity of Optimal Linear Decision Rules in Robust Inventory Management},
   author={Lu, Haihao and Sturt, Bradley},
   year={2023}
@@ -26,8 +26,8 @@ This repository is organized into the following directories:
 	*  `bental.jl`  After loading the script into the Julia terminal, the code is executed using the main function. 
 *  `src/` Contains the code for the acive set method. 
 	*  `algorithm_full.jl` Contains the code for the active set method.
-  *  `lp_solvers.jl` Contains the code for solving the robust counterpart
-  *  `utils.jl` Contains the code for detecting nonzero coefficients in the robust optimization problem. 
+  	*  `lp_solvers.jl` Contains the code for solving the robust counterpart
+  	*  `utils.jl` Contains the code for detecting nonzero coefficients in the robust optimization problem. 
 
 ## Requirements
 
