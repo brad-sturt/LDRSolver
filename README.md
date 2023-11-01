@@ -11,7 +11,7 @@ If you use the code in this repository in your own research, please cite the abo
 
 ```
 @article{lusturt2023sparsity,
-  title={On the Sparsity of Optimal Linear Decision Rules in Robust Inventory Management},
+  title={On the Sparsity of Optimal Linear Decision Rules in Robust Optimization},
   author={Lu, Haihao and Sturt, Bradley},
   year={2023}
 }
@@ -22,16 +22,16 @@ If you use the code in this repository in your own research, please cite the abo
 
 This repository is organized into the following directories: 
 
-* `examples/` Contains the scripts for performing the numerical experiments with active set method. The output of executing the scripts is saved in the `output/` directory. 
+* `examples/` Contains the scripts for performing the numerical experiments with the novel reformulation technique and the active set method. The output of executing the scripts is saved in the `output/` directory. 
 	*  `bental.jl`  After loading the script into the Julia terminal, the code is executed using the main function. 
 *  `src/` Contains the code for the acive set method. 
-	*  `algorithm_full.jl` Contains the code for the active set method.
-  	*  `lp_solvers.jl` Contains the code for solving the robust counterpart
+	*  `algorithm_full.jl` Contains the code for the novel reformulation technique and the active set method.
+  	*  `lp_solvers.jl` Contains the code for solving the traditional robust counterpart (for comparison).
   	*  `utils.jl` Contains the code for detecting nonzero coefficients in the robust optimization problem. 
 
 ## Requirements
 
-The scripts from the directory `julia_scripts` were tested using the Julia programming language (version 1.5.2) with the following packages and versions: 
+The scripts from the directory `examples/` were tested using the Julia programming language (version 1.5.2) with the following packages and versions: 
 * JuMP v1.3.1
 * Gurobi v0.11.3. 
 
