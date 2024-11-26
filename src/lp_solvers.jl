@@ -63,13 +63,13 @@ function DualLPSolver(a,b,c,D_min,D_max,method,gap)
     optimize!(model)
 
     # Parse output
-    @show list_of_constraint_types(model)
     @show num_constraints(model; count_variable_in_set_constraints=false)
     @show num_variables(model)
     if termination_status(model) == OPTIMAL
         println("Solution is optimal")
-    elseif termination_status(model) == TIME_LIMIT && has_values(model)
-        println("Solution is suboptimal due to a time limit, but a primal solution is available")
+    #elseif termination_status(model) == TIME_LIMIT && has_values(model)
+    elseif has_values(model)
+        println("Solution is suboptimal, but a primal solution is available")
     else
         println("The model was not solved correctly.")
         return Inf, [], [], []
