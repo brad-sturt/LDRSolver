@@ -225,13 +225,17 @@ function main(methods=["dual","activeset"])
                 # Write to output
                 ###########################################################################
 
+                # Get number of nonzero parameters in y
+                num_nonzero_y_D = count(!iszero, y_D)
+                num_nonzero_ζ_D = count(!iszero, Array(ζ_D))
+
                 row_string = string(E, ",",           # Number of factories
                                     time_factor, ",", # Time factor
                                     time_factor*24, ",",           # Number of time periods
                                     obj_val_D, ",",     # Current objective value
-                                    count(!iszero, y_D), ",", # Number of nonzero parameters in y
+                                    num_nonzero_y_D, ",", # Number of nonzero parameters in y
                                     time_elapsed, ",",        # Time for current iteration
-                                    count(!iszero, ζ_D), ",",
+                                    num_nonzero_ζ_D, ",",
                                     method,",",
                                     gap) 
                 row_string = string(row_string, "\n")
