@@ -9,7 +9,7 @@ include("utils.jl")
 gurobi_env = Gurobi.Env()
 
 
-function ActiveSetMethod(a,b,c,D_min,D_max,f_out,removal=false)
+function ActiveSetMethod(a,b,c,D_min,D_max,f_out,removal=false,time_limit=1e9)
 
     
     ###########################################################################
@@ -220,9 +220,6 @@ function ActiveSetMethod(a,b,c,D_min,D_max,f_out,removal=false)
         println("Parameters: ", sum(sum(sum(1 for j=1:n) for s=1:t) for t=1:T), 
                 ";\tLength of A: ", length(A), 
                 ";\t ||y||0: ", sum(count(!iszero, y_opt[t]) for t=1:T),
-                #";\t ||ζ||0: ", sum(count(!iszero, ζ_sparse[t]) for t=1:T),
-                #";\t E: ", n,
-                #";\t T: ", T,
                 ";\t Objective value: ",  obj_val,
                 ";\t Solver time: ", temp_time)
 
@@ -233,7 +230,7 @@ function ActiveSetMethod(a,b,c,D_min,D_max,f_out,removal=false)
 
         row_string = string(n, ",",                                       # Number of factories
                             Int((T-1)/24), ",",                           # Time factor
-                            removal, ",",                                 # true if we wil remove at end of each iteration
+                            removal, ",",                                 # true if we will remove at end of each iteration
                             T-1, ",",                                     # Number of time periods
                             counter, ",",                                 # Iteration
                             obj_val, ",",                                 # Current objective value
@@ -266,7 +263,7 @@ function ActiveSetMethod(a,b,c,D_min,D_max,f_out,removal=false)
         # Break if we didn't update I. Otherwise, do another iteration
         ###################################################################
 
-        if !added_tuple || cum_time > 10000 || num_iterations_without_improvement ≥ 100
+        if !added_tuple || cum_time > time_limit || num_iterations_without_improvement ≥ 100
             break
         else
             continue

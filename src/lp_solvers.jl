@@ -20,7 +20,7 @@ gurobi_env = Gurobi.Env()
 
 
 # The following function solves the problem as an LP in the dual formulation
-function DualLPSolver(a,b,c,D_min,D_max,method,gap)
+function DualLPSolver(a,b,c,D_min,D_max,method,gap=0,time_limit=1e9)
 
     # Get the problem dimensions
     m = length(a)-1
@@ -35,14 +35,16 @@ function DualLPSolver(a,b,c,D_min,D_max,method,gap)
     set_silent(model)
 
     # Uncomment if want to terminate method early
-    #set_time_limit_sec(model, 1000.0)
+    set_time_limit_sec(model, time_limit)
 
     # Set gurobi settings
     if method != -1
         set_optimizer_attribute(model, "Method", method)
         if method == 2
             set_optimizer_attribute(model, "Crossover", 0)
-            set_optimizer_attribute(model, "BarConvTol", gap)
+            if gap != 0
+                set_optimizer_attribute(model, "BarConvTol", gap)
+            end
         end
     end
 
