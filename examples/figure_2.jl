@@ -54,7 +54,7 @@ function main()
         # Run algorithm and write to output
         ###########################################################################
 
-        time_limit = 500
+        time_limit = 300
         ActiveSetMethod(a,b,c,D_min,D_max,f_out,removal,time_limit)
     end
 

@@ -12,16 +12,15 @@ library(grid)
 {
   
   
-  data_activeset_haihao = read.csv("activeset_dec_3_2024.csv")
-  data_dual_haihao = read.csv("dual_dec_3_2024.csv")
+  #data_activeset_haihao = read.csv("activeset_dec_3_2024.csv")
+  #data_dual_haihao = read.csv("dual_dec_3_2024.csv")
   #dual_data = read.csv("dual_E5_012.csv") %>%
   #  filter(Method != 2) %>%
   #  rbind(read.csv("dual_E5.csv") %>% mutate(Method = 2)) %>%
   #  filter(time_factor %in% c(2,4,6,8,10))
-  
-  #data = dual_data %>%
-  data = data_dual_haihao %>%
+  data = read.csv("figure_ec4.csv") %>%
     select(E, time_factor,T,obj_val,y_nonzero,time,zeta_nonzero,Method) %>%
+    mutate(obj_val = ifelse(Method == 6, -obj_val, obj_val)) %>%
     mutate(method = ifelse(Method == 0, "Primal simplex", ifelse(Method == 1, "Dual simplex",  ifelse(Method == 2, "Barrier",  ifelse(Method == 6, "PDLP", "Automatic"  ))))) %>%
     select(-Method) %>%
     mutate(E = as.factor(E),
@@ -31,19 +30,6 @@ library(grid)
     mutate(approximation = obj_val / min_obj_val)
   
   
-  
-  data_bar =  data %>%      
-    filter(E == 5, method != "New Algorithm - No Removal") %>%
-    group_by(E,time_factor,T,obj_val,y_nonzero,time,zeta_nonzero,method,min_obj_val,approximation) %>% 
-    expand(approximation_level = c(1.1,1.01,1.001)) %>%
-    filter(approximation < approximation_level + 1e-6) %>%  
-    group_by(E,time_factor,T,method,approximation_level) %>%
-    summarize(time = min(time)) %>%
-    ungroup() %>% 
-    filter(method == "New Algorithm - Removal" | approximation_level == 1.01) %>% 
-    mutate(approximation_level = ifelse(method == "New Algorithm - Removal", approximation_level, 1.00)) %>%
-    mutate(approximation_level = as.factor(approximation_level)) %>%
-    filter(time_factor %in% c(2,3,4,6,8,10))
   
   
   
@@ -69,7 +55,7 @@ library(grid)
                     legend.spacing.x = unit(.1, 'cm'),
                     axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
   
-  png(file="../output/plot_gurobi.png",
+  png(file="../output/figure_ec4.png",
       width = 12, height = 5, units = 'in', res = 300)
   grid.arrange(plot_gurobi)
   dev.off()

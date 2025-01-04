@@ -44,7 +44,7 @@ function main()
     flush(f_out)
 
     # Run experiment
-    for E=[5], time_factor=[2,4], method = [0,1,2]
+    for E=[5], time_factor=[2,4,6,8,10], method = [0,1,2,6]
 
 
         ###########################################################################

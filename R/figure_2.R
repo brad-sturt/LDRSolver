@@ -15,7 +15,8 @@ library(grid)
     mutate(time = cum_time) %>%
     mutate(obj_val = round(obj_val)) %>%
     mutate(T = as.factor(T),E = as.factor(E)) %>%
-    filter(E %in% c(10,20,30,40,50))
+    filter(E %in% c(10,20,30,40,50)) %>%
+    filter(time <= 250)
   
   plot_fixed_T = new_data %>%
     ggplot(aes(x=time,y=obj_val)) +

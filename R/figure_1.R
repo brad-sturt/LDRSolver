@@ -11,19 +11,18 @@ library(grid)
 # Figure 1
 {
   # Active set method (solved to optimality)
-  active_set_data = read.csv("figure1_active_set.csv") %>%
+  active_set_data = read.csv("figure_1_active_set.csv") %>%
     arrange(E,time_factor,iteration) %>%
     mutate(T = as.factor(T),E = as.factor(E)) %>%
     
     # Get the cumulative time 
     group_by(E,time_factor) %>%
     mutate(cum_time = cumsum(time)) %>% 
-    mutate(obj_val = round(obj_val)) %>%
-    
+
     # Extract the approximation gap
     group_by(time_factor,E) %>%
     mutate(min_obj_val = min(obj_val)) %>%
-    mutate(approximation = obj_val / min_obj_val) %>%
+    mutate(approximation = obj_val / min_obj_val) %>% 
     
     # Identify the times that active set method gets within 10%, 1%,
     # and 0.1% of optimal
@@ -33,7 +32,7 @@ library(grid)
     group_by(E,time_factor,T,approximation_level) %>%
     summarize(time = min(cum_time)) %>%
     ungroup() %>%
-    mutate(gap = approximation_level-1) %>%
+    mutate(gap = round(1000*(approximation_level-1))/ 1000) %>%
     
     # Add the name of the method and remove unnecessary columns
     mutate(method = "Active set method") %>%
@@ -73,7 +72,7 @@ library(grid)
   
   png(file="../output/figure_1.png",
       width = 12, height = 5, units = 'in', res = 300)
-  grid.arrange(plot_apples_to_apples)
+  grid.arrange(plot_figure_1)
   dev.off()
 }
 
